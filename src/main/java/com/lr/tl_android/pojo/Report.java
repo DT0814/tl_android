@@ -16,11 +16,18 @@ public class Report {
     private Integer rid;
     private Integer uid;
     private String imagePath;
-    //举报处理状态1未处理2处理完成
-    private byte state;
+    //举报处理状态false未处理true处理完成
+    private boolean state;
 
     public Report() {
     }
+
+    public Report(Integer uid, String imagePath, boolean state) {
+        this.uid = uid;
+        this.imagePath = imagePath;
+        this.state = state;
+    }
+
 
     public Integer getRid() {
         return rid;
@@ -46,11 +53,11 @@ public class Report {
         this.imagePath = imagePath;
     }
 
-    public byte getState() {
+    public boolean getState() {
         return state;
     }
 
-    public void setState(byte state) {
+    public void setState(boolean state) {
         this.state = state;
     }
 }

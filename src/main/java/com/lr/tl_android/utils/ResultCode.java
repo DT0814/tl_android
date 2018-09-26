@@ -20,4 +20,5 @@ public class ResultCode {
 
     public static int EMPTY_FILE = 441;
     public static int UPLOAD_FAIL = 442;
+    public static int DOWNLOAD_FAIL = 443;
 }
