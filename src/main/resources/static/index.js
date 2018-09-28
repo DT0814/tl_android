@@ -1,13 +1,14 @@
 function fsubmit() {
     //var form=document.getElementById("form1");
-    var fd =new FormData($("#form1")[0]);
+    var fd = new FormData($("#form1")[0]);
     $.ajax({
-        url: "http://localhost:8080/uploadImage",
+        url: "/report/userReport",
         type: "POST",
         data: fd,
         processData: false,  // 告诉jQuery不要去处理发送的数据
         contentType: false,   // 告诉jQuery不要去设置Content-Type请求头
-        success: function(response,status,xhr){
+        success: function (data) {
+            console.log(data.retCode);
             //console.log(xhr);
             //var json=$.parseJSON(response);
             // var result = '';
