@@ -21,7 +21,6 @@ public class ReportController {
         if (file.isEmpty()) {
             return ReportResult.getInstance(ResultCode.IMAGE_EMPTY_FAIL);
         }
-
         return service.saveImage(file, uid);
     }
 }
