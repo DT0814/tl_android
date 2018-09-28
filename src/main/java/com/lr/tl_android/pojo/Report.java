@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tl_report")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializ,er", "handler"})
 public class Report {
     @Id
     @GeneratedValue
@@ -22,10 +22,11 @@ public class Report {
     public Report() {
     }
 
-    public Report(Integer uid, String imagePath, boolean state) {
+    public Report(Integer uid, String imagePath, boolean state, Integer rid) {
         this.uid = uid;
         this.imagePath = imagePath;
         this.state = state;
+        this.rid = rid;
     }
 
 

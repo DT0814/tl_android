@@ -5,18 +5,21 @@ import com.lr.tl_android.pojo.Report;
 import com.lr.tl_android.pojo.result.ReportResult;
 import com.lr.tl_android.utils.ResultCode;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 
+@Service
 public class ReportService {
 
     private final static String uploadPath = "../images/";
-
+    @Resource
     private ReportDao dao;
 
 
@@ -35,10 +38,16 @@ public class ReportService {
         OutputStream outputStream = new FileOutputStream(saveFile);
         IOUtils.copy(file.getInputStream(), outputStream);
 
-        Report report = new Report(uid, filePath, false);
+        Report report = new Report(uid, filePath, false, 1);
+        //Log.debug();
+        System.out.println(uid + "*******************************" + filePath);
         dao.saveAndFlush(report);
+
 
         return ReportResult.getInstance(ResultCode.SUCCESS);
 
     }
+
+
+
 }

@@ -11,18 +11,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 
 @RestController
 public class ReportController {
     private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
+    @Resource
     private ReportService service;
 
     @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
-    public ReportResult uploadImage(@RequestParam(value = "file") MultipartFile file, @RequestParam(value = "id") Integer uid) throws IOException {
-        if (file.isEmpty()) {
+    public ReportResult uploadImage(@RequestParam(value = "photo") MultipartFile photo, @RequestParam(value = "id") Integer id) throws IOException {
+
+        if (photo.isEmpty()) {
             return ReportResult.getInstance(ResultCode.IMAGE_EMPTY_FAIL);
         }
-        return service.saveImage(file, uid);
+        return service.saveImage(photo, id);
     }
 }
