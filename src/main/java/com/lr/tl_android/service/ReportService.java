@@ -1,12 +1,10 @@
 package com.lr.tl_android.service;
 
-import com.lr.tl_android.dao.ImageUploadDao;
+import com.lr.tl_android.dao.ReportDao;
 import com.lr.tl_android.pojo.Report;
 import com.lr.tl_android.pojo.result.ReportResult;
 import com.lr.tl_android.utils.ResultCode;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -19,7 +17,7 @@ public class ReportService {
 
     private final static String uploadPath = "../images/";
 
-    private ImageUploadDao dao;
+    private ReportDao dao;
 
 
     public ReportResult saveImage(MultipartFile file, Integer uid) throws IOException{
