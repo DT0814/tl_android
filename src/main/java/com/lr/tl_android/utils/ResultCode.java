@@ -18,6 +18,7 @@ public class ResultCode {
     public static int USER_EXISTS = 431;
     public static int USER_NOT_FOUND = 432;
 
-    public static int IMAGE_EMPTY_FAIL = 441;
-    public static int IMAGE_UPLOAD_FAIL = 442;
+    public static int REPORT_IMAGE_EMPTY_FAIL = 441;
+    public static int REPORT_IMAGE_UPLOAD_FAIL = 442;
+    public static int REPORT_USER_NOT_FOUND = 443;
 }

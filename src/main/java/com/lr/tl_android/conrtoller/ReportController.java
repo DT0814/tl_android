@@ -5,27 +5,29 @@ import com.lr.tl_android.service.ReportService;
 import com.lr.tl_android.utils.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @RestController
+@RequestMapping("report")
 public class ReportController {
     private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
     @Resource
     private ReportService service;
 
-    @RequestMapping(value = "/uploadImage", method = RequestMethod.POST)
-    public ReportResult uploadImage(@RequestParam(value = "photo") MultipartFile photo, @RequestParam(value = "id") Integer id) throws IOException {
-
-        if (photo.isEmpty()) {
-            return ReportResult.getInstance(ResultCode.IMAGE_EMPTY_FAIL);
+    @PostMapping(value = "/userReport")
+    public ReportResult userReport(@RequestParam(value = "reason") String reason, @RequestParam(value = "photo") MultipartFile photo, @RequestParam(value = "id") Integer uid) throws IOException {
+        if (null == uid || uid < 0) {
+            return ReportResult.getInstance(ResultCode.PARAMETER_ERROR);
         }
-        return service.saveImage(photo, id);
+        if (photo.isEmpty()) {
+            return ReportResult.getInstance(ResultCode.REPORT_IMAGE_EMPTY_FAIL);
+        }
+        return service.userReport(photo, uid, reason);
     }
 }
