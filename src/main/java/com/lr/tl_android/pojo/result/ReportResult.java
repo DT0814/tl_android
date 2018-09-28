@@ -1,6 +1,6 @@
 package com.lr.tl_android.pojo.result;
 
-public class UploadResult {
+public class ReportResult {
     private int retCode;
 
     public int getRetCode() {
@@ -11,11 +11,11 @@ public class UploadResult {
         this.retCode = retCode;
     }
 
-    public UploadResult(int retCode) {
+    public ReportResult(int retCode) {
         this.retCode = retCode;
     }
 
-    public static UploadResult getInstance(int retCode) {
-        return new UploadResult(retCode);
+    public static ReportResult getInstance(int retCode) {
+        return new ReportResult(retCode);
     }
 }

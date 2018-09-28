@@ -18,7 +18,6 @@ public class ResultCode {
     public static int USER_EXISTS = 431;
     public static int USER_NOT_FOUND = 432;
 
-    public static int EMPTY_FILE = 441;
-    public static int UPLOAD_FAIL = 442;
-    public static int DOWNLOAD_FAIL = 443;
+    public static int IMAGE_EMPTY_FAIL = 441;
+    public static int IMAGE_UPLOAD_FAIL = 442;
 }
