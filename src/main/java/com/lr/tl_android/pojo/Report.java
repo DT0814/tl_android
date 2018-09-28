@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tl_report")
-@JsonIgnoreProperties({"hibernateLazyInitializ,er", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Report {
     @Id
     @GeneratedValue
@@ -17,12 +17,12 @@ public class Report {
     private Integer uid;
     private String imagePath;
     //举报处理状态false未处理true处理完成
-    private boolean state;
+    private byte state;
 
     public Report() {
     }
 
-    public Report(Integer uid, String imagePath, boolean state, Integer rid) {
+    public Report(Integer uid, String imagePath, byte state) {
         this.uid = uid;
         this.imagePath = imagePath;
         this.state = state;
@@ -54,11 +54,11 @@ public class Report {
         this.imagePath = imagePath;
     }
 
-    public boolean getState() {
+    public byte getState() {
         return state;
     }
 
-    public void setState(boolean state) {
+    public void setState(byte state) {
         this.state = state;
     }
 }

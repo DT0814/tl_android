@@ -38,12 +38,10 @@ public class ReportService {
         OutputStream outputStream = new FileOutputStream(saveFile);
         IOUtils.copy(file.getInputStream(), outputStream);
 
-        Report report = new Report(uid, filePath, false, 1);
-        //Log.debug();
-        System.out.println(uid + "*******************************" + filePath);
+        Report report = new Report(uid, filePath, (byte) 1);
+
+
         dao.saveAndFlush(report);
-
-
         return ReportResult.getInstance(ResultCode.SUCCESS);
 
     }
