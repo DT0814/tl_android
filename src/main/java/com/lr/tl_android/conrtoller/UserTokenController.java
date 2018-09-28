@@ -15,7 +15,6 @@ public class UserTokenController {
     @Autowired
     private UserTokenService service;
 
-
     @RequestMapping("/report_update")
     public UserTokenResult update(@RequestParam(name = "id") Integer uid, Integer value, String reason, String url) {
         if (null == uid || uid <= 0 || null == reason || null == value || null == url) {
@@ -23,6 +22,4 @@ public class UserTokenController {
         }
         return service.update(uid, value, reason, url);
     }
-
-
 }

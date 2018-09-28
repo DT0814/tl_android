@@ -26,7 +26,6 @@ public class Report {
         this.uid = uid;
         this.imagePath = imagePath;
         this.state = state;
-        this.rid = rid;
     }
 
 
