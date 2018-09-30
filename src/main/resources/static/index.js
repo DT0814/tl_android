@@ -2,7 +2,7 @@ function fsubmit() {
     //var form=document.getElementById("form1");
     var fd = new FormData($("#form1")[0]);
     $.ajax({
-        url: "http://193.112.64.181:8080/report/userReport",
+        url: "/report/userReport",
         type: "POST",
         data: fd,
         processData: false,  // 告诉jQuery不要去处理发送的数据
