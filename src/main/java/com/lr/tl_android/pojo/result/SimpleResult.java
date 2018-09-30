@@ -1,6 +1,6 @@
 package com.lr.tl_android.pojo.result;
 
-public class UserTokenResult {
+public class SimpleResult {
     private int retCode;
 
     public int getRetCode() {
@@ -11,12 +11,11 @@ public class UserTokenResult {
         this.retCode = retCode;
     }
 
-    public UserTokenResult(int retCode) {
+    public SimpleResult(int retCode) {
         this.retCode = retCode;
     }
 
-    public static UserTokenResult getInstance(int retCode) {
-        return new UserTokenResult(retCode);
+    public static SimpleResult getInstance(int retCode) {
+        return new SimpleResult(retCode);
     }
-
 }
