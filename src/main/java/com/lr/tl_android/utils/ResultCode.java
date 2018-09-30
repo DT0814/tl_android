@@ -21,4 +21,5 @@ public class ResultCode {
     public static int REPORT_IMAGE_EMPTY_FAIL = 441;
     public static int REPORT_IMAGE_UPLOAD_FAIL = 442;
     public static int REPORT_USER_NOT_FOUND = 443;
+    public static int REPORT_HISTORY_NOT_FOUND = 444;
 }

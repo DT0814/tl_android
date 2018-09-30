@@ -64,7 +64,11 @@ public class ReportService {
 
     public ReportHistoryResult userReportHistory(Integer uid, Integer pageNum, Integer pageSize) {
         if(!userDao.existsById(uid)) {
-            ReportHistoryResult.getInstance(ResultCode.REPORT_USER_NOT_FOUND,null);
+            return ReportHistoryResult.getInstance(ResultCode.REPORT_USER_NOT_FOUND,null);
+        }
+
+        if(!reportDao.existsById(uid)) {
+            return ReportHistoryResult.getInstance(ResultCode.REPORT_HISTORY_NOT_FOUND, null);
         }
 
         Sort sort = new Sort(Sort.Direction.DESC, "time");
