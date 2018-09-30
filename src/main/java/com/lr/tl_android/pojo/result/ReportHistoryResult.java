@@ -8,18 +8,28 @@ import java.util.List;
 public class ReportHistoryResult {
 
     private int retCode;
+    private Long total;
     private List<Report> reports;
 
     public ReportHistoryResult() {
     }
 
-    private ReportHistoryResult(int retCode, List<Report> reports) {
+    private ReportHistoryResult(int retCode, List<Report> reports, Long total) {
         this.reports = reports;
         this.retCode = retCode;
+        this.total = total;
     }
 
-    public static ReportHistoryResult getInstance(int retCode, List<Report> reports) {
-        return new ReportHistoryResult(retCode, reports);
+    public static ReportHistoryResult getInstance(int retCode, List<Report> reports, Long pageTotal) {
+        return new ReportHistoryResult(retCode, reports, pageTotal);
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
     }
 
     public int getRetCode() {

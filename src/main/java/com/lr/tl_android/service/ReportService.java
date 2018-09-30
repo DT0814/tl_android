@@ -62,33 +62,54 @@ public class ReportService {
     }
 
 
-    public ReportHistoryResult userReportHistory(Integer uid, Integer pageNum, Integer pageSize) {
-        if(!userDao.existsById(uid)) {
-            return ReportHistoryResult.getInstance(ResultCode.REPORT_USER_NOT_FOUND,null);
+    public ReportHistoryResult getUserReportHistory(Byte state, Integer uid, Integer pageNum, Integer pageSize) {
+        if (!userDao.existsById(uid)) {
+            return ReportHistoryResult.getInstance(ResultCode.REPORT_USER_NOT_FOUND, null, 0L);
         }
 
-        if(!reportDao.existsById(uid)) {
+/*      如果查不到结果返回空就好了，因为操作是正确的,返回的状态码就不应该是失败的
+        if (!reportDao.existsById(uid)) {
             return ReportHistoryResult.getInstance(ResultCode.REPORT_HISTORY_NOT_FOUND, null);
-        }
+        }*/
 
-        Sort sort = new Sort(Sort.Direction.DESC, "time");
-        Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
         Report report = new Report();
         report.setUid(uid);
-
-        ExampleMatcher matcher = ExampleMatcher.matching()
-                .withIgnorePaths("uid")
-                .withIgnorePaths("imagePath")
-                .withIgnorePaths("state")
-                .withIgnorePaths("date")
-                .withIgnorePaths("reason");
+        ExampleMatcher matcher;
+        if (null != state) {
+            report.setState(state);
+            matcher = ExampleMatcher.matching()
+                    .withIgnorePaths("imagePath", "date", "reason");
+        } else {
+            matcher = ExampleMatcher.matching()
+                    .withIgnorePaths("imagePath", "date", "reason", "state");
+        }
 
         Example<Report> example = Example.of(report, matcher);
-
+        Sort sort = new Sort(Sort.Direction.DESC, "date");
+        Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
         Page<Report> all = reportDao.findAll(example, pageable);
 
-        return ReportHistoryResult.getInstance(ResultCode.SUCCESS, all.getContent());
+        return ReportHistoryResult.getInstance(ResultCode.SUCCESS, all.getContent(), all.getTotalElements());
 
     }
 
+    public ReportHistoryResult getReportHistory(Byte state, Integer pageNum, Integer pageSize) {
+        Report report = new Report();
+        ExampleMatcher matcher;
+        if (null != state) {
+            report.setState(state);
+            matcher = ExampleMatcher.matching()
+                    .withIgnorePaths("imagePath", "date", "reason", "uid");
+        } else {
+            matcher = ExampleMatcher.matching()
+                    .withIgnorePaths("imagePath", "date", "reason", "uid", "state");
+        }
+
+        Example<Report> example = Example.of(report, matcher);
+        Sort sort = new Sort(Sort.Direction.DESC, "date");
+        Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
+        Page<Report> all = reportDao.findAll(example, pageable);
+
+        return ReportHistoryResult.getInstance(ResultCode.SUCCESS, all.getContent(), all.getTotalElements());
+    }
 }
