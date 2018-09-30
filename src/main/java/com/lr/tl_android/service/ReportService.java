@@ -4,10 +4,14 @@ import com.lr.tl_android.dao.ReportDao;
 import com.lr.tl_android.dao.UserDao;
 import com.lr.tl_android.pojo.Report;
 import com.lr.tl_android.pojo.User;
+import com.lr.tl_android.pojo.UserToken;
+import com.lr.tl_android.pojo.result.ReportHistoryResult;
 import com.lr.tl_android.pojo.result.ReportResult;
 import com.lr.tl_android.utils.ResultCode;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +30,7 @@ public class ReportService {
 
     private final static String uploadPath = "images/";
     @Resource
-    private ReportDao dao;
+    private ReportDao reportDao;
     @Resource
     private UserDao userDao;
 
@@ -51,12 +55,36 @@ public class ReportService {
         IOUtils.copy(inputStream, outputStream);
 
         Report report = new Report(uid, filePath, (byte) 1, reason, date);
-        dao.saveAndFlush(report);
+        reportDao.saveAndFlush(report);
         outputStream.close();
         inputStream.close();
         return ReportResult.getInstance(ResultCode.SUCCESS);
-
     }
 
+
+    public ReportHistoryResult userReportHistory(Integer uid, Integer pageNum, Integer pageSize) {
+        if(!userDao.existsById(uid)) {
+            ReportHistoryResult.getInstance(ResultCode.REPORT_USER_NOT_FOUND,null);
+        }
+
+        Sort sort = new Sort(Sort.Direction.DESC, "time");
+        Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
+        Report report = new Report();
+        report.setUid(uid);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("uid")
+                .withIgnorePaths("imagePath")
+                .withIgnorePaths("state")
+                .withIgnorePaths("date")
+                .withIgnorePaths("reason");
+
+        Example<Report> example = Example.of(report, matcher);
+
+        Page<Report> all = reportDao.findAll(example, pageable);
+
+        return ReportHistoryResult.getInstance(ResultCode.SUCCESS, all.getContent());
+
+    }
 
 }

@@ -3,6 +3,8 @@ package com.lr.tl_android.pojo.result;
 public class ReportResult {
     private int retCode;
 
+    public ReportResult(){}
+
     public int getRetCode() {
         return retCode;
     }
@@ -11,7 +13,7 @@ public class ReportResult {
         this.retCode = retCode;
     }
 
-    public ReportResult(int retCode) {
+    private ReportResult(int retCode) {
         this.retCode = retCode;
     }
 

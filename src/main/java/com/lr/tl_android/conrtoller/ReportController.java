@@ -1,5 +1,6 @@
 package com.lr.tl_android.conrtoller;
 
+import com.lr.tl_android.pojo.result.ReportHistoryResult;
 import com.lr.tl_android.pojo.result.ReportResult;
 import com.lr.tl_android.service.ReportService;
 import com.lr.tl_android.utils.ResultCode;
@@ -30,4 +31,14 @@ public class ReportController {
         }
         return service.userReport(photo, uid, reason);
     }
+
+    @RequestMapping(value = "/userReportHistory")
+    public ReportHistoryResult userReoprtHistory(@RequestParam(value = "id") Integer uid, Integer pageNum, Integer pageSize) {
+        if (null == uid || uid < 0) {
+            return ReportHistoryResult.getInstance(ResultCode.PARAMETER_ERROR,null);
+        }
+
+        return service.userReportHistory(uid, pageNum, pageSize);
+    }
+
 }
